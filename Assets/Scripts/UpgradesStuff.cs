@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class UpgradesStuff : MonoBehaviour
 {
-    public Controller controller;
-
+    public static UpgradesStuff instance;
+    private void Awake() => instance = this;
     public Upgrades clickUpgrade;
 
     public string clickUpgradeName;
@@ -24,20 +24,22 @@ public class UpgradesStuff : MonoBehaviour
 
     public void UpdateClickUpgradeUI()
     {
-        clickUpgrade.LvlTxt.text = controller.data.clickUpgradeLvl.ToString();
+        var data = Controller.instance.data;
+        clickUpgrade.LvlTxt.text = data.clickUpgradeLvl.ToString();
         clickUpgrade.CostTxt.text = "It Costs " + Cost() + " Bepis Cans";
         clickUpgrade.NameTxt.text = "1 More " + clickUpgradeName;
 
     }
 
-    public BigDouble Cost() => clickUpgradeBaseCost * BigDouble.Pow(clickUpgradeCostMultiplier, controller.data.clickUpgradeLvl);
+    public BigDouble Cost() => clickUpgradeBaseCost * BigDouble.Pow(clickUpgradeCostMultiplier, Controller.instance.data.clickUpgradeLvl);
 
     public void BuyUprade()
     {
-        if (controller.data.bepis >= Cost())
+        var data = Controller.instance.data;
+        if (data.bepis >= Cost())
         {
-            controller.data.bepis -= Cost();
-            controller.data.clickUpgradeLvl += 1;
+            data.bepis -= Cost();
+            data.clickUpgradeLvl += 1;
         }
 
         UpdateClickUpgradeUI();

@@ -4,7 +4,8 @@ using TMPro;
 
 public class Controller : MonoBehaviour
 {
-    public UpgradesStuff upgradesStuff;
+    public static Controller instance;
+    private void Awake() => instance = this;
     public Data data;
 
     [SerializeField] private TMP_Text BepisText;
@@ -16,7 +17,7 @@ public class Controller : MonoBehaviour
     private void Start()
     {
         data = new Data();
-        upgradesStuff.Start();
+        UpgradesStuff.instance.Start();
     }
 
     private void Update()
