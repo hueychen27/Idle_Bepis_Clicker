@@ -4,28 +4,29 @@ using TMPro;
 
 public class Controller : MonoBehaviour
 {
-
+    public UpgradesStuff upgradesStuff;
     public Data data;
 
-    [SerializeField] private TMP_Text bepisText;
+    [SerializeField] private TMP_Text BepisText;
+    [SerializeField] private TMP_Text ClickValueTxt;
+
+    public BigDouble ClickValue() => 1 + data.clickUpgradeLvl;
+
 
     private void Start()
     {
         data = new Data();
+        upgradesStuff.Start();
     }
 
     private void Update()
     {
-        bepisText.text = data.bepis + " Bepis Cans";
+        BepisText.text = data.bepis + " Bepis Cans";
+        ClickValueTxt.text = "+" + ClickValue() + " Bepis Cans";
     }
 
     public void ProduceBepis()
     {
-        data.bepis += 1;
-    }
-
-    public void RemoveBepis()
-    {
-        data.bepis -= 1;
+        data.bepis += ClickValue();
     }
 }

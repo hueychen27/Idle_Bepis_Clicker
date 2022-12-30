@@ -6,8 +6,11 @@ public class Data
 {
     public BigDouble bepis;
 
+    public BigDouble clickUpgradeLvl;
+
     public Data()
     {
         bepis = 0;
+        clickUpgradeLvl = 0;
     }
 }
